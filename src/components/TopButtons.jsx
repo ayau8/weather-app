@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-function TopButtons() {
-  
+function TopButtons({ city, setCity }) {
+  const [activeCity, setActiveCity] = useState(1)
+
   const cities = [
     {
       id: 1,
@@ -17,10 +18,21 @@ function TopButtons() {
     },
   ]
 
+  const handleCity = (id, value) => {
+    setActiveCity(id)
+    setCity(value)
+  }
+
   return (
     <div className="flex items-center justify-around my-6">
       {cities.map((city) => ( 
-        <button key={city.id} className="text-white text-lg font-medium">{city.title}</button>
+        <button 
+          key={city.id} 
+          className= {`text-lg font-medium ${activeCity === city.id ? "text-black" : "text-white"}`}
+          onClick={() => {handleCity(city.id, city.title)}}
+        >
+          {city.title}
+        </button>
       ))}
     </div>
   )
