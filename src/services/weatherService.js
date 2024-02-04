@@ -58,8 +58,7 @@ const getFormattedWeatherData = async searchParams => {
   return {...formattedCurrentWeather, ...formattedForecastWeather};
 };
 
-const iconUrlFromCode = code => `http://openweathermap.org/img/wn/${code}2x.png`
-
+const iconUrlFromCode = code => `http://openweathermap.org/img/wn/${code}@2x.png`
 
 export default getFormattedWeatherData;
 

@@ -8,41 +8,33 @@ import Forecasts from './components/Forecasts';
 import getFormattedWeatherData from './services/weatherService';
 
 function App() {
-  const [data, setData] = useState(null);
-  const [city, setCity] = useState("Tokyo")
-
-  const fetchWeather = async () => {
-    const data = await getFormattedWeatherData({q: "Tokyo"});
-    console.log(data);
-  };
-
-  fetchWeather();
+  const [query, setQuery] = useState( {q: 'tokyo'})
+  const [units, setUnits] = useState('metric')
+  const [weather, setWeather] = useState(null)
 
   useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=c338eb81fead5a23d8fd7f80814f046f`)
-        if (!response.ok) {
-          throw new Error('Network response was not ok.')
-        } else {
-          const data = await response.json()
+    const fetchWeather = async () => {
+      getFormattedWeatherData({...query, units}).then(
+        (data) => {
           console.log(data)
-          setData(data.articles)
-        }
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    fetchData()
-  }, [city])
+          setWeather(data);
+        });
+    };
+    fetchWeather();
+  }, [query, units])
 
   return (
-    <div className="mx-auto max-w-screen-md mt-4 py-5 px-32 bg-gradient-to-br from-cyan-700 to-blue-700 h-fit shadown-xl shadow-gray-400">
-        <TopButtons city={city} setCity={setCity}/>
-        <Inputs city={city} setCity={setCity}/>
-        <TimeAndLocation />
-        <TemperatureAndDetails />
-        <Forecasts title="3-hour forecast"/>
+    <div className="mx-auto max-w-screen-md mt-12 py-5 px-32 bg-gradient-to-br from-cyan-700 to-blue-700 h-fit shadown-xl shadow-gray-400">
+      <TopButtons setQuery={setQuery}/>
+      <Inputs setQuery={setQuery}/>
+
+      { weather && (
+      <div>
+        <TimeAndLocation weather={weather}/>
+        <TemperatureAndDetails weather={weather} />
+        <Forecasts title="3-hour forecast" items={weather.list}/>
+      </div>
+      )}
     </div>
   );
 }
