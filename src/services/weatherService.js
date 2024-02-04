@@ -58,9 +58,11 @@ const getFormattedWeatherData = async searchParams => {
   return {...formattedCurrentWeather, ...formattedForecastWeather};
 };
 
+const dateTimeObject = time => DateTime.fromFormat(time, 'yyyy-MM-dd HH:mm:ss').toFormat('HH:mm');
+
 const iconUrlFromCode = code => `http://openweathermap.org/img/wn/${code}@2x.png`
 
 export default getFormattedWeatherData;
 
-export { iconUrlFromCode };
+export { dateTimeObject, iconUrlFromCode };
 
