@@ -5,17 +5,23 @@ import Inputs from './components/Inputs';
 import TimeAndLocation from './components/TimeAndLocation';
 import TemperatureAndDetails from './components/TemperatureAndDetails';
 import Forecasts from './components/Forecasts';
+import getFormattedWeatherData from './services/weatherService';
 
 function App() {
   const [data, setData] = useState(null);
   const [city, setCity] = useState("Tokyo")
 
-  const TESTING_KEY = process.env.REACT_APP_TESTING_KEY
+  const fetchWeather = async () => {
+    const data = await getFormattedWeatherData({q: "Tokyo"});
+    console.log(data);
+  };
+
+  fetchWeather();
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${TESTING_KEY}`)
+        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=c338eb81fead5a23d8fd7f80814f046f`)
         if (!response.ok) {
           throw new Error('Network response was not ok.')
         } else {
@@ -36,8 +42,7 @@ function App() {
         <Inputs city={city} setCity={setCity}/>
         <TimeAndLocation />
         <TemperatureAndDetails />
-        <Forecasts title="daily forecast"/>
-        <Forecasts title="hourly forecast"/>
+        <Forecasts title="3-hour forecast"/>
     </div>
   );
 }
