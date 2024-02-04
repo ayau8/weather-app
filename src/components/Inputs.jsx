@@ -9,7 +9,21 @@ function Inputs( { setQuery }) {
   }
 
   const handleSearch = () => {
-    setQuery({q: text});
+    if (text !== "") setQuery({q: text});
+  }
+
+  const handleLocationClick = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        let lat = position.coords.latitude
+        let lon = position.coords.longitude;
+
+        setQuery({
+          lat,
+          lon,
+        });
+      });
+    }
   }
 
   return (
@@ -24,12 +38,13 @@ function Inputs( { setQuery }) {
         <UilSearch 
           size={25} 
           className="text-white cursor-pointer transition ease-out hover:scale-125"
-          onClick={() => handleSearch()}
+          onClick={handleSearch}
         />
-        {/* <UilLocationPoint 
+        <UilLocationPoint 
           size={25} 
           className="text-white cursor-pointer transition ease-out hover:scale-125"
-        /> */}
+          onClick={handleLocationClick}
+        />
       </div>  
     </div>
   )
