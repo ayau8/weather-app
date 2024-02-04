@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { UilSearch , UilLocationPoint } from "@iconscout/react-unicons";
 
-function Inputs( { setCity }) {
+function Inputs( { setQuery }) {
   const [text, setText] = useState("")
 
   const handleText = value => {
@@ -9,7 +9,7 @@ function Inputs( { setCity }) {
   }
 
   const handleSearch = () => {
-    setCity(text)
+    setQuery({q: text});
   }
 
   return (
