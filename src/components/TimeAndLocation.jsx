@@ -1,10 +1,12 @@
-import React, { useEffect } from 'react'
+import React from 'react'
+import { dateTimetoLocalTime } from '../services/weatherService'
 
-function TimeAndLocation({weather: { name, country} }) {
+function TimeAndLocation({weather: { timezone, name, country} }) {
   return (
     <div>
       <div className="flex items-center justify-center my-6">
       <p className="text-white text-xl font-extralight">
+        {dateTimetoLocalTime(timezone)}
       </p>
     </div>
     
