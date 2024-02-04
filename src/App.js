@@ -24,10 +24,10 @@ function App() {
   }, [query, units])
 
   return (
-    <div className="mx-auto max-w-screen-md mt-12 py-5 px-32 bg-gradient-to-br from-cyan-700 to-blue-700 h-fit shadown-xl shadow-gray-400">
+    // <div className="mx-auto max-w-screen-md mt-12 py-5 px-32 bg-gradient-to-br border-cyan-700 border-8 rounded-3xl from-cyan-700 to-blue-700 h-fit shadown-xl shadow-gray-400">
+    <div className="mx-auto h-fit max-w-screen-md mt-12 py-12 px-32 bg-gray-800 rounded-md bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-50 border-4 border-gray-200">
       <TopButtons setQuery={setQuery}/>
       <Inputs setQuery={setQuery}/>
-
       { weather && (
       <div>
         <TimeAndLocation weather={weather}/>
