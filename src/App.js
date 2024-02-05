@@ -22,15 +22,25 @@ function App() {
         (data) => {
           toast.success(`Successfully fetched weather for ${data.name}, ${data.country}`)
           setWeather(data);
+          console.log(data);
         });
     };
     fetchWeather();
   }, [query, units])
 
+  const formatBackground = () => {
+    if (weather?.details === "Clear") return "url('https://24.media.tumblr.com/tumblr_mebcbsOzV01qc66bjo1_500.gif')";
+    if (weather?.details === "Clouds") return "url('https://images.genial.ly/5a58ab96bfbfc70f6eb4d2c0/0e784a67-9553-45ad-a639-0f45ef097ce8.gif')";
+    if (weather?.details === "Rain") return "url('https://cdn.pixabay.com/animation/2023/06/25/21/55/21-55-38-961_512.gif')";
+    if (weather?.details === "Snow") return "url('https://www.animationsoftware7.com/img/agifs/snow02.gif')";
+  }
+
   return (
-    // <div className="mx-auto max-w-screen-md mt-12 py-5 px-32 bg-gradient-to-br border-cyan-700 border-8 rounded-3xl from-cyan-700 to-blue-700 h-fit shadown-xl shadow-gray-400">
     <div>
-    <div className="mx-auto h-fit max-w-screen-md mt-12 py-12 px-32 bg-gray-800 rounded-md bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-50 border-4 border-gray-200">
+      <div 
+        className={`mx-auto h-fit max-w-screen-md mt-12 py-12 px-32 bg-black rounded-md bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-50 border-4 border-gray-200 shadow-xl`}
+        style={{backgroundImage: formatBackground(), backgroundSize: 'cover'}}
+      >
         <TopButtons setQuery={setQuery}/>
         <Inputs setQuery={setQuery}/>
       { weather && (
