@@ -1,8 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 function TopButtons({ setQuery }) {
-  const [activeQuery, setActiveQuery] = useState(1)
-
   const cities = [
     {
       id: 1,
@@ -19,7 +17,6 @@ function TopButtons({ setQuery }) {
   ]
 
   const handleCity = (id, value) => {
-    setActiveQuery(id)
     setQuery({q: value})
   }
 
@@ -28,7 +25,7 @@ function TopButtons({ setQuery }) {
       {cities.map((city) => ( 
         <button 
           key={city.id} 
-          className= {`text-lg font-medium ${activeQuery === city.id ? "text-black" : "text-white"}`}
+          className= {`text-lg font-medium`}
           onClick={() => {handleCity(city.id, city.title)}}
         >
           {city.title}
